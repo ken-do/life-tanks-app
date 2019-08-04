@@ -43,8 +43,7 @@ class TankBoostModal extends React.Component {
     }
     
 
-    handleOk() {
-        console.log(this.state)
+    handleOk = () => {
         this.props.handleOk({tank_id:this.props.tankId, ...this.state});
     }
 
@@ -60,6 +59,7 @@ class TankBoostModal extends React.Component {
                 onOk={this.handleOk.bind(this)}
                 onCancel={this.props.handleCancel}
                 okText='Boost'
+                okButtonProps={{type:'danger', icon:'thunderbolt'}}
             >
                 <TankBoostForm activities={this.props.activities} onChange={this.handleFormChange.bind(this)} />
             </Modal>

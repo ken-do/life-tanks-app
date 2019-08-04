@@ -46,7 +46,7 @@ class ActivityList extends React.Component {
             key: 'action',
             render: (text, record) => (
                 <span>
-                    <a onClick={() => this.props.history.push('/activities/edit/' + record.id)}><Icon type="edit" /></a>
+                    <a onClick={() => this.props.history.push('/activities/edit/' + record.id)}><Icon type="edit" theme="twoTone" twoToneColor="#1890ff" /></a>
                 </span>
             ),
         },
@@ -61,10 +61,10 @@ class ActivityList extends React.Component {
         return (
             <div className="activities-list">
                 <Row align="middle" type="flex" justify="space-between" >
-                    <Col span={8}>
+                    <Col span={12}>
                         <PageHeader title="Activities" subTitle="Your activities" />
                     </Col>
-                    <Col span={8} offset={8} style={{ textAlign: 'right' }}>
+                    <Col span={12} style={{ textAlign: 'right' }}>
                         {button}
                     </Col>
                 </Row>

@@ -27,4 +27,21 @@ export default class Converter {
         }
         return obj;
     }
+
+    static statusToPoints(status){
+        switch (status) {
+            case 'poor':
+                return 25;
+                break;
+            case 'okay':
+                return 40;
+                break;
+            case 'excellent':
+                return 75;
+                break;
+            default:
+                return 60;
+                break;
+        }
+    }
 }

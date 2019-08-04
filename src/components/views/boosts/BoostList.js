@@ -7,11 +7,8 @@ import Converter from '../../../helpers/Converter';
 
 class BoostsList extends React.Component {
 
-    state = { modalVisible: false, modalTitle: '', modalId: '' };
-
-  
     deleteBoost = (id) => {
-        this.props.deleteTank(id);
+        this.props.deleteBoost(id);
     }
 
     
@@ -71,10 +68,8 @@ class BoostsList extends React.Component {
         return (
             <div className="tank-list">
                 <Row align="middle" type="flex" justify="space-between" >
-                    <Col span={8}>
+                    <Col span={18}>
                         <PageHeader title="Boosts" subTitle="Your boosts history" />
-                    </Col>
-                    <Col span={8} offset={8} style={{ textAlign: 'right' }}>
                     </Col>
                 </Row>
                 <Table columns={this.columns} dataSource={(this.props.boosts && this.props.boosts.length) ? this.props.boosts : []} pagination={false} rowKey='id' />

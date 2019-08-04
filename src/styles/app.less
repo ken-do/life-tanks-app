@@ -1,8 +1,55 @@
 @import "~antd/dist/antd.less";
 
+
+
+/**ADDTIONAL STYLES */
+
 .hide {
   display: none;
 }
+
+
+#components-layout-demo-custom-trigger .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #1890ff;
+}
+
+#components-layout-demo-custom-trigger .logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+
+.ant-btn .anticon {
+  position: relative;
+  bottom: 4px;
+}
+
+.logo {
+  float: left;
+  height: 64px;
+}
+
+section.layout.ant-layout .ant-layout-header {
+  padding: 0 15px;
+}
+
+
+.ant-page-header{
+  padding-left: 0
+}
+
+span.ant-page-header-heading-title{
+  font-size: 1.4rem;
+}
+
 
 @media (min-width: @screen-sm-min) {
     .visible-sm      { display: block !important; }
@@ -29,6 +76,15 @@
     th.visible-md,
     td.visible-md    { display: table-cell !important; }
     .flex-column-md   {flex-direction: column; }
+
+    
+    main.ant-layout-content .ant-page-header{
+      padding-left: 16px
+    }
+
+    span.ant-page-header-heading-title{
+      font-size: 2rem;
+    }
   }
   @media (min-width: @screen-lg-min) {
     .visible-lg      { display: block !important; }
@@ -42,6 +98,7 @@
     th.visible-lg,
     td.visible-lg    { display: table-cell !important; }
     .flex-column-lg   {flex-direction: column; }
+
   }
   @media (min-width: @screen-xl-min) {
     .visible-xl      { display: block !important; }
@@ -67,4 +124,3 @@
     margin-left: auto !important;
     display:block;
   }
-

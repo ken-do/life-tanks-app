@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import './styles/mixin.less';
+import './styles/app.less';
 
 import * as serviceWorker from './serviceWorker';
 

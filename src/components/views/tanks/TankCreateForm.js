@@ -3,43 +3,27 @@ import { Form, Input, InputNumber, Select, Row, Col, Checkbox, Button, Radio } f
 import { createTank, updateTank } from '../../../actions/tank';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
+import Converter from '../../../helpers/Converter';
 
 class TankCreateForm extends React.Component {
     
     handleSubmit = e => {
         e.preventDefault();
-        const { dispatch } = this.props;
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                switch (values.status) {
-                    case 'poor':
-                        values.points = values.starting_points = 25;
-                        break;
-                    case 'okay':
-                        values.points = values.starting_points = 40;
-                        break;
-                    case 'excellent':
-                        values.points = values.starting_points = 75;
-                        break;
-                    default:
-                        values.points = values.starting_points = 60;
-                        break;
-                }
-                if (this.props.tank !== undefined) {
-                    dispatch(updateTank(this.props.tank.id, values))
-                        .then(response => {
-                            this.props.history.push("/tanks");
-                        });
+                values.points = values.starting_points = Converter.statusToPoints(values.status);
+                if (this.props.match.params.id) {
+                    this.props.updateTank(this.props.match.params.id, values, this.goToTanksList);
                 } else {
-                    dispatch(createTank(values))
-                        .then(response => {
-                            this.props.history.push("/tanks");
-                        });
+                    this.props.createTank(values, this.goToTanksList);
                 }
-
             }
         });
     };
+
+    goToTanksList = (response) => {
+        this.props.history.push("/tanks");
+    }
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -67,11 +51,11 @@ class TankCreateForm extends React.Component {
         const formItemLayout = {
             labelCol: {
                 xs: { span: 12 },
-                sm: { span: 6 },
+                sm: { span: 8 },
             },
             wrapperCol: {
                 xs: { span: 24 },
-                sm: { span: 6 },
+                sm: { span: 8 },
             },
         };
         const tailFormItemLayout = {
@@ -81,8 +65,8 @@ class TankCreateForm extends React.Component {
                     offset: 0,
                 },
                 sm: {
-                    span: 16,
-                    offset: 8,
+                    span: 24,
+                    offset: 0,
                 },
             },
         };
@@ -111,7 +95,7 @@ class TankCreateForm extends React.Component {
                     })(<Input />)}
                 </Form.Item>
                 {statusField}
-                <Form.Item {...tailFormItemLayout}>
+                <Form.Item {...tailFormItemLayout} style={{textAlign: 'center'}}>
                     <Button type="primary" htmlType="submit">
                         { (!this.props.tank) ? 'Create' : 'Update'}
                     </Button>
@@ -124,5 +108,16 @@ class TankCreateForm extends React.Component {
     }
 }
 
+
+const mapDispatchToProps = dispatch => {
+    return {
+        createTank: (data, callback) => dispatch(createTank(data)).then(callback),
+        updateTank: (id, data, callback) => dispatch(updateTank(id, data)).then(callback),
+    }
+}
+
 const WrappedTankCreateForm = Form.create({ name: 'tank_create' })(withRouter(TankCreateForm));
-export default connect()(WrappedTankCreateForm);
+export default connect(
+    null,
+    mapDispatchToProps
+)(WrappedTankCreateForm);

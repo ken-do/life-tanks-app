@@ -8,7 +8,11 @@ import TankBoostModal from './TankBoostModal';
 
 class TankList extends React.Component {
 
-    state = { modalVisible: false, modalTitle: '', modalId: '' };
+    state = {
+        modalVisible: false,
+        modalTitle: '',
+        modalId: ''
+    };
 
     openBoostModal = id => {
         const title = 'Boost My ' + Converter.toSentenceCase(this.props.tanks.filter(tank => tank.id === id)[0].name);
@@ -27,16 +31,14 @@ class TankList extends React.Component {
         });
     };
 
-    handleOk = (data) => {
-        if(data.activity_name && data.level){
+    handleModalOk = (data) => {
+        if (data.activity_name && data.level) {
             this.props.boostTank(data)
             this.setState({
                 modalVisible: false,
             });
         }
     }
-
-
 
     deleteTank = (id) => {
         this.props.deleteTank(id);
@@ -98,11 +100,11 @@ class TankList extends React.Component {
             key: 'action',
             render: (text, record) => (
                 <span>
-                    <a onClick={this.openBoostModal.bind(this, record.id)}><Icon type="thunderbolt" theme="twoTone" twoToneColor="#1890ff" /></a>
+                    <a onClick={this.openBoostModal.bind(this, record.id)}><Icon type="thunderbolt" theme="twoTone" twoToneColor="#ff4d4f" /></a>
                     <Divider type="vertical" />
-                    <a onClick={() => this.props.history.push('/tanks/edit/' + record.id)}><Icon type="edit"  theme="twoTone" twoToneColor="firebrick"/></a>
+                    <a onClick={() => this.props.history.push('/tanks/edit/' + record.id)}><Icon type="edit" theme="twoTone" twoToneColor="#1890ff" /></a>
                     <Divider type="vertical" />
-                    <a onClick={this.deleteTank.bind(this, record.id)}><Icon type="delete"  theme="twoTone" twoToneColor="grey"/></a>
+                    <a onClick={this.deleteTank.bind(this, record.id)}><Icon type="delete" theme="twoTone" twoToneColor="grey" /></a>
                 </span>
             ),
         },
@@ -114,14 +116,14 @@ class TankList extends React.Component {
 
     render() {
         const button = (this.props.tanks && this.props.tanks.length < 5) ? <NavLink to="/tanks/create"><Button type="primary" icon="plus">Add</Button></NavLink> : null;
-        const modal = (this.state.modalVisible) ? <TankBoostModal tankId={this.state.tankId} title={this.state.modalTitle} handleOk={this.handleOk.bind(this)} handleCancel={this.handleModalCancel.bind(this)} />: null;
+        const modal = (this.state.modalVisible) ? <TankBoostModal tankId={this.state.tankId} title={this.state.modalTitle} handleOk={this.handleModalOk.bind(this)} handleCancel={this.handleModalCancel.bind(this)} /> : null;
         return (
             <div className="tank-list">
                 <Row align="middle" type="flex" justify="space-between" >
-                    <Col span={8}>
+                    <Col span={12}>
                         <PageHeader title="Tanks" subTitle="Your tanks" />
                     </Col>
-                    <Col span={8} offset={8} style={{ textAlign: 'right' }}>
+                    <Col span={12} style={{ textAlign: 'right' }}>
                         {button}
                     </Col>
                 </Row>

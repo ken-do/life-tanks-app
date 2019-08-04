@@ -4,27 +4,24 @@ import { updateActivity, createActivity } from '../../../actions/activity';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 
-class TankCreateForm extends React.Component {
+class ActivityCreateForm extends React.Component {
+    
     handleSubmit = e => {
         e.preventDefault();
-        const { dispatch } = this.props;
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                if (this.props.activity !== undefined) {
-                    dispatch(updateActivity(this.props.activity.id, values))
-                        .then(response => {
-                            this.props.history.push("/activities");
-                        });
+                if (this.props.match.params.id) {
+                    this.props.updateActivity(this.props.match.params.id, values, this.goToActivitiesList);
                 } else {
-                    dispatch(createActivity(values))
-                        .then(response => {
-                            this.props.history.push("/activities");
-                        });
+                    this.props.createActivity(values, this.goToActivitiesList);
                 }
-
             }
         });
     };
+
+    goToActivitiesList = response => {
+        this.props.history.push("/activities");
+    }
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -32,11 +29,11 @@ class TankCreateForm extends React.Component {
         const formItemLayout = {
             labelCol: {
                 xs: { span: 12 },
-                sm: { span: 6 },
+                sm: { span: 8 },
             },
             wrapperCol: {
                 xs: { span: 24 },
-                sm: { span: 6 },
+                sm: { span: 8 },
             },
         };
         const tailFormItemLayout = {
@@ -46,8 +43,8 @@ class TankCreateForm extends React.Component {
                     offset: 0,
                 },
                 sm: {
-                    span: 16,
-                    offset: 8,
+                    span: 24,
+                    offset: 0,
                 },
             },
         };
@@ -66,15 +63,28 @@ class TankCreateForm extends React.Component {
                         ],
                     })(<Input />)}
                 </Form.Item>
-                <Form.Item {...tailFormItemLayout}>
+                <Form.Item {...tailFormItemLayout} style={{textAlign:   'center'}}>
                     <Button type="primary" htmlType="submit">
                         { (!this.props.activity) ? 'Create' : 'Update'}
-            </Button>
+                    </Button>
+                    <Button type="secondary" htmlType="button" onClick={() => this.props.history.push('/activities')} style={{marginLeft:'5px'}}>
+                        Cancel
+                    </Button>
                 </Form.Item>
             </Form>
         );
     }
 }
 
-const WrappedTankCreateForm = Form.create({ name: 'tank_create' })(withRouter(TankCreateForm));
-export default connect()(WrappedTankCreateForm);
+const mapDispatchToProps = dispatch => {
+    return {
+        createActivity: (data, callback) => dispatch(createActivity(data)).then(callback),
+        updateActivity: (id, data, callback) => dispatch(updateActivity(id, data)).then(callback),
+    }
+}
+
+const WrappedActivityCreateForm = Form.create({ name: 'tank_create' })(withRouter(ActivityCreateForm));
+export default connect(
+    null,
+    mapDispatchToProps
+)(WrappedActivityCreateForm);

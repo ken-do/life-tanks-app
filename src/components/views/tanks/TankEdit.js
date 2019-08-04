@@ -3,7 +3,6 @@ import { PageHeader } from 'antd';
 import TankCreateForm from './TankCreateForm';
 import { connect } from 'react-redux';
 import { retrieveTank } from '../../../actions/tank';
-import Converter from '../../../helpers/Converter';
 import Randomizer from '../../../helpers/Randomizer';
 
 class TankEdit extends React.Component {

@@ -10,7 +10,7 @@ export default (props) => {
             'flexDirection': 'column',
             'alignItems': 'center',
             'justifyContent': 'center',
-            'margin': '0 1rem',
+            'margin': '0 0.5rem',
         },
         logoLink: {
             'display': 'flex',
