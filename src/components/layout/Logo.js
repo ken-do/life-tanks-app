@@ -25,10 +25,10 @@ export default (props) => {
             color: '#08c' 
         },
         logoText: {
-            'color': 'white',
-            'font-size': '10px',
-            'color': '#1890ff',
-            'line-height': '10px'
+            color: 'white',
+            fontSize: '10px',
+            color: '#1890ff',
+            lineHeight: '10px'
         }
     }
 

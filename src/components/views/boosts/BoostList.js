@@ -24,16 +24,18 @@ class BoostsList extends React.Component {
 
     columns = [
         {
-            title: 'Tank',
-            dataIndex: 'tank_name',
-            key: 'tank_name',
-            render: (text, record) => <a onClick={() => this.props.history.push('/tanks')}><strong>{Converter.toSentenceCase(text)}</strong></a>,
-            className: 'hide visible-lg'
-        },
-        {
             title: 'Activity',
             key: 'activity_name',
             dataIndex: 'activity_name',
+            render: (text, record) => <a onClick={() => this.props.history.push('/activities')}><strong>{Converter.toSentenceCase(text)}</strong></a>,
+        },
+        {
+            title: 'Tank',
+            dataIndex: 'tank_name',
+            key: 'tank_name',
+            className: 'hide visible-lg',
+            render: (text, record) => <a onClick={() => this.props.history.push('/tanks')}>{Converter.toSentenceCase(text)}</a>,
+
         },
         {
             title: 'Level',
