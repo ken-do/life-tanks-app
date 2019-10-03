@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "less": "^3.9.0",
-    "less-loader": "^5.0.0"
+    "less-loader": "^5.0.0",
+    "eslint-utils": ">=1.4.1"
   }
 }
